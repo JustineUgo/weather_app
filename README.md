@@ -78,11 +78,11 @@ Ensure this file is listed in your pubspec.yaml:
     
     
     
-🛠️ Tech Stack
-    * Flutter
-    * BLoC (flutter_bloc)
-    * Dio for HTTP requests
-    * Geolocator for location services
-    * Shared Preferences for local persistence
-    * flutter_dotenv for secure config handling
-    * Mocktail for unit testing
+### 🛠️ Tech Stack
+* Flutter
+* BLoC (flutter_bloc)
+* Dio for HTTP requests
+* Geolocator for location services
+* Shared Preferences for local persistence
+* flutter_dotenv for secure config handling
+* Mocktail for unit testing
