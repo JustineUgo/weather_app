@@ -35,22 +35,21 @@ This project uses **environment variables** to securely manage sensitive data li
 
 📦 Install Dependencies
 
-    ```env
     flutter pub get
-    ```
+    
 
 
 ▶️ Run the App
-    ```env
+    
     flutter run
-    ```
+    
 
 
 
 🧪 Run Tests
-    ```env
+    
     flutter test
-    ```
+    
     
 
 
@@ -61,12 +60,12 @@ Example snippet from assets/ng.json:
 
     
     [
-    {
+        {
         "city": "Lagos",
         "lat": "6.4550",
         "lng": "3.3841",
         "country": "Nigeria"
-    }
+        }
     ]
     
 
