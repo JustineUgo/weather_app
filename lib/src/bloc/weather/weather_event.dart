@@ -15,8 +15,8 @@ class LoadWeatherForCities extends WeatherEvent {
 }
 
 class Coordinate extends Equatable {
-  final double lat;
-  final double lon;
+  final num lat;
+  final num lon;
 
   const Coordinate({required this.lat, required this.lon});
 

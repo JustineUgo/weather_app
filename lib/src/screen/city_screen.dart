@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/src/bloc/city/city_bloc.dart';
 import 'package:weather/src/bloc/city/city_event.dart';
 import 'package:weather/src/bloc/city/city_state.dart';
-import 'package:weather/src/model/city_model.dart';
+import 'package:weather/src/bloc/city/selected_city_bloc.dart';
+import 'package:weather/src/bloc/city/selected_city_event';
+import 'package:weather/src/bloc/city/selected_city_state.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({super.key});
@@ -14,11 +16,11 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
-  List<String> defaultCities = ["Lagos", "Abuja", "Port Harcourt"];
   @override
   void initState() {
     super.initState();
     BlocProvider.of<CityBloc>(context).add(LoadCitiesEvent());
+    BlocProvider.of<SelectedCityBloc>(context).add(LoadSelectedCities());
   }
 
   @override
@@ -28,38 +30,105 @@ class _CityScreenState extends State<CityScreen> {
       body: SafeArea(
         minimum: EdgeInsets.symmetric(horizontal: 16),
         child: BlocBuilder<CityBloc, CityState>(
-          builder: (context, state) {
-            if (state is CityLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is CityLoaded) {
-              return ListView.builder(
-                itemCount: state.cities.take(15).length,
-                itemBuilder: (context, index) {
-                  CityModel city = state.cities.take(15).toList()[index];
-                  bool isDefault = defaultCities.contains(city.city);
-                  return ListTile(
-                    leading: Text("${index + 1}"),
-                    title: Text(
-                      city.city ?? '',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    subtitle: Text(city.adminName ?? ''),
-                    trailing: isDefault
-                        ? null
-                        : Icon(CupertinoIcons.add_circled),
-                  );
+          builder: (context, cityState) {
+            if (cityState is CityLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (cityState is CityLoaded) {
+              final cities = cityState.cities.take(15).toList();
+              return BlocBuilder<SelectedCityBloc, SelectedCityState>(
+                builder: (context, selectedState) {
+                  if (selectedState is SelectedCityLoaded) {
+                    final selectedCities = selectedState.cities;
+                    final selectedCityNames = selectedCities
+                        .map((c) => c.city)
+                        .toSet();
+
+                    return ListView.builder(
+                      itemCount: cities.length,
+                      itemBuilder: (context, index) {
+                        final city = cities[index];
+                        final isSelected = selectedCityNames.contains(
+                          city.city,
+                        );
+                        final isPermanent = selectedCities
+                            .take(3)
+                            .any((c) => c.city == city.city);
+
+                        return ListTile(
+                          leading: Text("${index + 1}"),
+                          title: Text(
+                            city.city ?? '',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          subtitle: Text(city.adminName ?? ''),
+                          trailing: isSelected
+                              ? IconButton(
+                                  icon: Icon(
+                                    isPermanent
+                                        ? CupertinoIcons
+                                              .check_mark_circled_solid
+                                        : CupertinoIcons.minus_circled,
+                                    color: isPermanent
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
+                                  onPressed: isPermanent
+                                      ? null
+                                      : () {
+                                          context.read<SelectedCityBloc>().add(
+                                            RemoveCityFromSelection(city),
+                                          );
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                "${city.city} has been removed!",
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                )
+                              : IconButton(
+                                  icon: const Icon(CupertinoIcons.add_circled),
+                                  onPressed: () {
+                                    context.read<SelectedCityBloc>().add(
+                                      AddCityToSelection(city),
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "${city.city} has been added!",
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                        );
+                      },
+                    );
+                  } else if (selectedState is SelectedCityError) {
+                    return Center(
+                      child: Text(
+                        selectedState.message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.redAccent),
+                      ),
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
                 },
               );
-            } else if (state is CityError) {
+            } else if (cityState is CityError) {
               return Center(
                 child: Text(
-                  state.message,
+                  cityState.message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.redAccent),
                 ),
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         ),
       ),

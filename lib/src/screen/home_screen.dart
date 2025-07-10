@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather/route/router.dart';
+import 'package:weather/src/bloc/city/selected_city_bloc.dart';
+import 'package:weather/src/bloc/city/selected_city_event';
+import 'package:weather/src/bloc/city/selected_city_state.dart';
 import 'package:weather/src/bloc/weather/weather_bloc.dart';
 import 'package:weather/src/bloc/weather/weather_event.dart';
 import 'package:weather/src/bloc/weather/weather_state.dart';
-import 'package:weather/src/model/weather_response.dart';
 import 'package:weather/src/screen/widget/weather_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,15 +21,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // React to selected cities and load weather
+    context.read<SelectedCityBloc>().stream.listen((state) {
+      if (state is SelectedCityLoaded) {
+        final coords = state.cities
+            .map((c) => Coordinate(
+                  lat: c.lat ?? 0,
+                  lon: c.lng ?? 0,
+                ))
+            .toList();
+
+        // ignore: use_build_context_synchronously
+        BlocProvider.of<WeatherBloc>(context).add(LoadWeatherForCities(coords));
+      }
+    });
+  }
+  @override
   void initState() {
     super.initState();
 
-    BlocProvider.of<WeatherBloc>(context).add(
-      LoadWeatherForCities([
-        Coordinate(lat: 6.4550, lon: 3.3841), // Lagos
-        Coordinate(lat: 9.0667, lon: 7.4833), // Abuja
-        Coordinate(lat: 4.8242, lon: 7.0336), // Port Harcourt
-      ]),
+    BlocProvider.of<SelectedCityBloc>(context).add(
+      LoadSelectedCities()
     );
   }
 
