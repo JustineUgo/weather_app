@@ -5,7 +5,7 @@ import 'package:weather/src/bloc/city/city_bloc.dart';
 import 'package:weather/src/bloc/city/city_event.dart';
 import 'package:weather/src/bloc/city/city_state.dart';
 import 'package:weather/src/bloc/city/selected_city_bloc.dart';
-import 'package:weather/src/bloc/city/selected_city_event';
+import 'package:weather/src/bloc/city/selected_city_event.dart';
 import 'package:weather/src/bloc/city/selected_city_state.dart';
 
 class CityScreen extends StatefulWidget {

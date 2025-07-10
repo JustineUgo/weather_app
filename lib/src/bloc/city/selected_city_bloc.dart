@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/service/storage_service.dart';
-import 'package:weather/src/bloc/city/selected_city_event';
+import 'package:weather/src/bloc/city/selected_city_event.dart';
 import '../../model/city_model.dart';
 import '../../repository/city_repository.dart';
 import 'selected_city_state.dart';

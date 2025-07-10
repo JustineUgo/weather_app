@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather/route/router.dart';
 import 'package:weather/src/bloc/city/selected_city_bloc.dart';
-import 'package:weather/src/bloc/city/selected_city_event';
+import 'package:weather/src/bloc/city/selected_city_event.dart';
 import 'package:weather/src/bloc/city/selected_city_state.dart';
 import 'package:weather/src/bloc/weather/my_weather_bloc.dart';
 import 'package:weather/src/bloc/weather/weather_bloc.dart';
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // React to selected cities and load weather
-    context.read<SelectedCityBloc>().stream.listen((state) {
+    BlocProvider.of<SelectedCityBloc>(context).stream.listen((state) {
       if (state is SelectedCityLoaded) {
         final coords = state.cities
             .map((c) => Coordinate(lat: c.lat ?? 0, lon: c.lng ?? 0))

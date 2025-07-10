@@ -1,19 +1,21 @@
-class WeatherResponse {
-  Coord? coord;
-  List<Weather>? weather;
-  String? base;
-  Main? main;
-  num? visibility;
-  Wind? wind;
-  Clouds? clouds;
-  num? dt;
-  Sys? sys;
-  num? timezone;
-  num? id;
-  String? name;
-  num? cod;
+import 'package:equatable/equatable.dart';
 
-  WeatherResponse({
+class WeatherResponse  extends Equatable {
+  final Coord? coord;
+  final List<Weather>? weather;
+  final String? base;
+  final Main? main;
+  final num? visibility;
+  final Wind? wind;
+  final Clouds? clouds;
+  final num? dt;
+  final Sys? sys;
+  final num? timezone;
+  final num? id;
+  final String? name;
+  final num? cod;
+
+  const WeatherResponse({
     this.coord,
     this.weather,
     this.base,
@@ -29,6 +31,23 @@ class WeatherResponse {
     this.cod,
   });
 
+  @override
+  List<Object?> get props => [
+        coord,
+        weather,
+        base,
+        main,
+        visibility,
+        wind,
+        clouds,
+        dt,
+        sys,
+        timezone,
+        id,
+        name,
+        cod,
+      ];
+      
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
     return WeatherResponse(
       coord: json['coord'] != null ? Coord.fromJson(json['coord']) : null,
