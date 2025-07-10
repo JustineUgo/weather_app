@@ -73,7 +73,17 @@ class _CityScreenState extends State<CityScreen> {
                                         : Colors.red,
                                   ),
                                   onPressed: isPermanent
-                                      ? null
+                                      ? () {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                "${city.city} is a default city",
+                                              ),
+                                            ),
+                                          );
+                                        }
                                       : () {
                                           context.read<SelectedCityBloc>().add(
                                             RemoveCityFromSelection(city),

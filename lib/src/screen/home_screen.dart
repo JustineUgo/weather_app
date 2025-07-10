@@ -20,6 +20,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CarouselController controller = CarouselController();
+  int currentIndex = 0;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -27,10 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<SelectedCityBloc>().stream.listen((state) {
       if (state is SelectedCityLoaded) {
         final coords = state.cities
-            .map((c) => Coordinate(
-                  lat: c.lat ?? 0,
-                  lon: c.lng ?? 0,
-                ))
+            .map((c) => Coordinate(lat: c.lat ?? 0, lon: c.lng ?? 0))
             .toList();
 
         // ignore: use_build_context_synchronously
@@ -38,13 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
+
   @override
   void initState() {
     super.initState();
 
-    BlocProvider.of<SelectedCityBloc>(context).add(
-      LoadSelectedCities()
-    );
+    BlocProvider.of<SelectedCityBloc>(context).add(LoadSelectedCities());
   }
 
   @override
@@ -63,19 +62,51 @@ class _HomeScreenState extends State<HomeScreen> {
               return const Center(child: CircularProgressIndicator());
             } else if (state is WeatherLoaded) {
               return Center(
-                child: CarouselSlider.builder(
-                  itemCount: state.weatherList.length,
-                  options: CarouselOptions(
-                    height: 450.0,
-                    viewportFraction: 0.75,
-                    enlargeCenterPage: true,
-                    enlargeFactor: 0.2,
-                    initialPage: 0,
-                    enableInfiniteScroll: false,
-                  ),
-                  itemBuilder: (context, index, realIdx) {
-                    return WeatherTile(weather: state.weatherList[index]);
-                  },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CarouselSlider.builder(
+                      itemCount: state.weatherList.length,
+                      options: CarouselOptions(
+                        height: 450.0,
+                        viewportFraction: 0.75,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 0.2,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentIndex = index;
+                          });
+                        },
+                      ),
+                      itemBuilder: (context, index, realIdx) {
+                        return WeatherTile(weather: state.weatherList[index]);
+                      },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(state.weatherList.length, (
+                        index,
+                      ) {
+                        return AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 8,
+                          ),
+                          width: currentIndex == index ? 12 : 8,
+                          height: currentIndex == index ? 12 : 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: currentIndex == index
+                                ? Color(0xFFeeeee4)
+                                : Colors.grey,
+                          ),
+                        );
+                      }),
+                    ),
+                  ],
                 ),
               );
             } else if (state is WeatherError) {

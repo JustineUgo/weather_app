@@ -82,7 +82,7 @@ class WeatherTile extends StatelessWidget {
                   value: "${weather.wind?.speed ?? 0}m/s",
                 ),
               ),
-
+    
               Expanded(
                 child: TempFooter(
                   icon: CupertinoIcons.drop,
