@@ -34,31 +34,32 @@ This project uses **environment variables** to securely manage sensitive data li
 ---
 
 📦 Install Dependencies
+
     ```env
     flutter pub get
     ```
----
+
 
 ▶️ Run the App
     ```env
     flutter run
     ```
 
----
+
 
 🧪 Run Tests
     ```env
     flutter test
     ```
     
----
+
 
 📂 Assets
 The app uses a local JSON file to store the 15 Nigerian cities.
 
 Example snippet from assets/ng.json:
 
-    ```env
+    
     [
     {
         "city": "Lagos",
@@ -67,15 +68,15 @@ Example snippet from assets/ng.json:
         "country": "Nigeria"
     }
     ]
-    ```
+    
 
 Ensure this file is listed in your pubspec.yaml:
 
-    ```env
+    
     flutter:
     assets:
         - assets/ng.json
-    ```
+    
     
     
 🛠️ Tech Stack
