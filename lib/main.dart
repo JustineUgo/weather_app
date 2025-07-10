@@ -25,6 +25,14 @@ class WeatherApp extends StatelessWidget {
     // );
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFF0E0E10),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF0E0E10),
+          foregroundColor: Color(0xFFFFFFFF),
+        ),
+      ),
+      themeMode: ThemeMode.light,
       routerConfig: router,
     );
   }

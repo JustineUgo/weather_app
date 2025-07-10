@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:weather/src/screen/widget/weather_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,19 +13,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(centerTitle: true, title: Text("Weather Check!")),
       body: SafeArea(
-        child: Container(
-          color: Color(0xFFe6edf5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-              Text(
-                "Lagos",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w300),
-              ),
-              Row(),
-            ],
+        child: Center(
+          child: CarouselSlider(
+            options: CarouselOptions(
+              height: 400.0,
+              viewportFraction: 0.7,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.2,
+              initialPage: 0,
+              enableInfiniteScroll: false,
+            ),
+            items: [1, 2, 3].map((i) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return WeatherTile();
+                },
+              );
+            }).toList(),
           ),
         ),
       ),
