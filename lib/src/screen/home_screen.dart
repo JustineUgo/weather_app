@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:weather/src/model/weather_response.dart';
 import 'package:weather/src/screen/widget/weather_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: CarouselSlider(
             options: CarouselOptions(
-              height: 400.0,
-              viewportFraction: 0.7,
+              height: 450.0,
+              viewportFraction: 0.75,
               enlargeCenterPage: true,
               enlargeFactor: 0.2,
               initialPage: 0,
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             items: [1, 2, 3].map((i) {
               return Builder(
                 builder: (BuildContext context) {
-                  return WeatherTile();
+                  return WeatherTile(weather: WeatherResponse.fixture());
                 },
               );
             }).toList(),

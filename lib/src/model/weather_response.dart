@@ -1,19 +1,17 @@
-
-
 class WeatherResponse {
   Coord? coord;
   List<Weather>? weather;
   String? base;
   Main? main;
-  int? visibility;
+  num? visibility;
   Wind? wind;
   Clouds? clouds;
-  int? dt;
+  num? dt;
   Sys? sys;
-  int? timezone;
-  int? id;
+  num? timezone;
+  num? id;
   String? name;
-  int? cod;
+  num? cod;
 
   WeatherResponse({
     this.coord,
@@ -50,19 +48,50 @@ class WeatherResponse {
       cod: json['cod'],
     );
   }
+
+  factory WeatherResponse.fixture() {
+    return WeatherResponse.fromJson({
+      "coord": {"lon": 3.75, "lat": 6.5833},
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "overcast clouds",
+          "icon": "04d",
+        },
+      ],
+      "base": "stations",
+      "main": {
+        "temp": 23.06,
+        "feels_like": 23.93,
+        "temp_min": 23.06,
+        "temp_max": 23.06,
+        "pressure": 1016,
+        "humidity": 96,
+        "sea_level": 1016,
+        "grnd_level": 1016,
+      },
+      "visibility": 10000,
+      "wind": {"speed": 2.26, "deg": 281, "gust": 7.27},
+      "clouds": {"all": 98},
+      "dt": 1752126834,
+      "sys": {"country": "NG", "sunrise": 1752125745, "sunset": 1752170675},
+      "timezone": 3600,
+      "id": 2332453,
+      "name": "Lagos",
+      "cod": 200,
+    });
+  }
 }
 
 class Coord {
-  double? lon;
-  double? lat;
+  num? lon;
+  num? lat;
 
   Coord({this.lon, this.lat});
 
   factory Coord.fromJson(Map<String, dynamic> json) {
-    return Coord(
-      lon: (json['lon'] as num?)?.toDouble(),
-      lat: (json['lat'] as num?)?.toDouble(),
-    );
+    return Coord(lon: (json['lon'] as num?), lat: (json['lat'] as num?));
   }
 }
 
@@ -85,14 +114,14 @@ class Weather {
 }
 
 class Main {
-  double? temp;
-  double? feelsLike;
-  double? tempMin;
-  double? tempMax;
-  int? pressure;
-  int? humidity;
-  int? seaLevel;
-  int? grndLevel;
+  num? temp;
+  num? feelsLike;
+  num? tempMin;
+  num? tempMax;
+  num? pressure;
+  num? humidity;
+  num? seaLevel;
+  num? grndLevel;
 
   Main({
     this.temp,
@@ -107,50 +136,48 @@ class Main {
 
   factory Main.fromJson(Map<String, dynamic> json) {
     return Main(
-      temp: (json['temp'] as num?)?.toDouble(),
-      feelsLike: (json['feels_like'] as num?)?.toDouble(),
-      tempMin: (json['temp_min'] as num?)?.toDouble(),
-      tempMax: (json['temp_max'] as num?)?.toDouble(),
-      pressure: json['pressure'],
-      humidity: json['humidity'],
-      seaLevel: json['sea_level'],
-      grndLevel: json['grnd_level'],
+      temp: (json['temp'] as num?),
+      feelsLike: (json['feels_like'] as num?),
+      tempMin: (json['temp_min'] as num?),
+      tempMax: (json['temp_max'] as num?),
+      pressure: json['pressure'] as num?,
+      humidity: json['humidity'] as num?,
+      seaLevel: json['sea_level'] as num?,
+      grndLevel: json['grnd_level'] as num?,
     );
   }
 }
 
 class Wind {
-  double? speed;
-  int? deg;
-  double? gust;
+  num? speed;
+  num? deg;
+  num? gust;
 
   Wind({this.speed, this.deg, this.gust});
 
   factory Wind.fromJson(Map<String, dynamic> json) {
     return Wind(
-      speed: (json['speed'] as num?)?.toDouble(),
+      speed: (json['speed'] as num?),
       deg: json['deg'],
-      gust: (json['gust'] as num?)?.toDouble(),
+      gust: (json['gust'] as num?),
     );
   }
 }
 
 class Clouds {
-  int? all;
+  num? all;
 
   Clouds({this.all});
 
   factory Clouds.fromJson(Map<String, dynamic> json) {
-    return Clouds(
-      all: json['all'],
-    );
+    return Clouds(all: json['all']);
   }
 }
 
 class Sys {
   String? country;
-  int? sunrise;
-  int? sunset;
+  num? sunrise;
+  num? sunset;
 
   Sys({this.country, this.sunrise, this.sunset});
 
