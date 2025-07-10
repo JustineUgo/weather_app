@@ -22,6 +22,17 @@
     "population_proper": "107169"
   }, 
   {
+    "city": "Port Harcourt", 
+    "lat": "4.8242", 
+    "lng": "7.0336", 
+    "country": "Nigeria", 
+    "iso2": "NG", 
+    "admin_name": "Rivers", 
+    "capital": "admin", 
+    "population": "1865000", 
+    "population_proper": "1148665"
+  }, 
+  {
     "city": "Ibadan", 
     "lat": "7.3964", 
     "lng": "3.9167", 
@@ -53,17 +64,6 @@
     "capital": "admin", 
     "population": "2095000", 
     "population_proper": "2095000"
-  }, 
-  {
-    "city": "Port Harcourt", 
-    "lat": "4.8242", 
-    "lng": "7.0336", 
-    "country": "Nigeria", 
-    "iso2": "NG", 
-    "admin_name": "Rivers", 
-    "capital": "admin", 
-    "population": "1865000", 
-    "population_proper": "1148665"
   }, 
   {
     "city": "Nneyi-Umuleri", 

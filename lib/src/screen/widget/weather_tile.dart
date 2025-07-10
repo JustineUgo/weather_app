@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:weather/src/model/weather_response.dart';
 import 'package:weather/src/screen/widget/weather_footer.dart';
 import 'package:weather/utils/extension/num_extension.dart';
@@ -15,7 +16,7 @@ class WeatherTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
-        color: Color(0xFFe6edf5),
+        color: Color(0xFFeeeee4),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -40,7 +41,10 @@ class WeatherTile extends StatelessWidget {
               children: [
                 Container(
                   height: 100,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black87,
+                  ),
                   child: CachedNetworkImage(
                     imageUrl:
                         "https://openweathermap.org/img/wn/${weatherSummary?.icon ?? ''}@2x.png",

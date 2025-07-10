@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/config/env_config.dart';
 import 'package:weather/route/router.dart';
+import 'package:weather/src/bloc/city/city_bloc.dart';
+import 'package:weather/src/repository/city_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,17 +26,30 @@ class WeatherApp extends StatelessWidget {
     //     ),
     //   ),
     // );
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFF0E0E10),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF0E0E10),
-          foregroundColor: Color(0xFFFFFFFF),
+    return MultiBlocProvider(
+      providers: [
+         BlocProvider(
+          create: (_) => CityBloc(
+            repository: CityRepository(),
+          ),
         ),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFF0E0E10),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color(0xFF0E0E10),
+            foregroundColor: Color(0xFFFFFFFF)
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            foregroundColor: Color(0xFF0E0E10),
+            backgroundColor: Color(0xFFFFFFFF),
+          ),
+        ),
+        themeMode: ThemeMode.light,
+        routerConfig: router,
       ),
-      themeMode: ThemeMode.light,
-      routerConfig: router,
     );
   }
 }
