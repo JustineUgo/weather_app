@@ -1,16 +1,85 @@
-# weather
+# 🌦️ Flutter Weather App
 
-A new Flutter project.
+This Flutter application fetches and displays current weather data for cities in Nigeria using the [OpenWeatherMap API](https://openweathermap.org/current). Users can view weather for selected cities, manage their list, and see weather based on their current location.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 Features
 
-A few resources to get you started if this is your first Flutter project:
+- 📍 Get weather using current device location
+- 🏙️ View weather for 15 predefined Nigerian cities (Lagos, Abuja, Port Harcourt, etc.)
+- ➕ Add or remove cities to/from your custom weather view
+- 💾 Persist selected cities using SharedPreferences
+- 🎠 Tab/Carousel UI for browsing weather per city
+- 🔒 API key and base URL stored securely using `.env` file
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Setup Instructions
+
+### 1. 🔑 Environment Variables (Required)
+
+This project uses **environment variables** to securely manage sensitive data like the API key and base URL.
+
+#### 🔐 Step-by-step to replicate:
+
+1. Create a file named `.env` at the root of the project:
+   ```env
+   API_KEY=your_openweathermap_api_key
+   BASE_URL=https://api.openweathermap.org/data/2.5
+    ```
+ 
+✅ Don't forget to add .env to .gitignore so it's not committed to version control.
+
+📦 Install Dependencies
+    ```env
+    flutter pub get
+    ```
+▶️ Run the App
+    ```env
+    flutter run
+    ```
+
+🧪 Run Tests
+    ```env
+    flutter test
+    ```
+    
+📂 Assets
+The app uses a local JSON file to store the 15 Nigerian cities.
+
+Example snippet from assets/ng.json:
+
+```env
+[
+  {
+    "city": "Lagos",
+    "lat": "6.4550",
+    "lng": "3.3841",
+    "country": "Nigeria"
+  }
+]
+```
+Ensure this file is listed in your pubspec.yaml:
+
+    ```env
+    flutter:
+    assets:
+        - assets/ng.json
+    ```
+    
+    
+🛠️ Tech Stack
+Flutter
+
+BLoC (flutter_bloc)
+
+Dio for HTTP requests
+
+Geolocator for location services
+
+Shared Preferences for local persistence
+
+flutter_dotenv for secure config handling
+
+Mocktail for unit testing

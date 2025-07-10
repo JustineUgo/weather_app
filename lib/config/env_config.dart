@@ -4,7 +4,7 @@ class EnvConfig {
 
   static Future<void> loadEnv() async {
     try {      
-      String envFileName = ".env/.prod";
+      String envFileName = ".env";
       await dotenv.load(fileName: envFileName);
     } catch (e) {
       rethrow;
