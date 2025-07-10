@@ -31,35 +31,44 @@ This project uses **environment variables** to securely manage sensitive data li
  
 ✅ Don't forget to add .env to .gitignore so it's not committed to version control.
 
+---
+
 📦 Install Dependencies
     ```env
     flutter pub get
     ```
+---
+
 ▶️ Run the App
     ```env
     flutter run
     ```
+
+---
 
 🧪 Run Tests
     ```env
     flutter test
     ```
     
+---
+
 📂 Assets
 The app uses a local JSON file to store the 15 Nigerian cities.
 
 Example snippet from assets/ng.json:
 
-```env
-[
-  {
-    "city": "Lagos",
-    "lat": "6.4550",
-    "lng": "3.3841",
-    "country": "Nigeria"
-  }
-]
-```
+    ```env
+    [
+    {
+        "city": "Lagos",
+        "lat": "6.4550",
+        "lng": "3.3841",
+        "country": "Nigeria"
+    }
+    ]
+    ```
+
 Ensure this file is listed in your pubspec.yaml:
 
     ```env
@@ -70,16 +79,10 @@ Ensure this file is listed in your pubspec.yaml:
     
     
 🛠️ Tech Stack
-Flutter
-
-BLoC (flutter_bloc)
-
-Dio for HTTP requests
-
-Geolocator for location services
-
-Shared Preferences for local persistence
-
-flutter_dotenv for secure config handling
-
-Mocktail for unit testing
+    * Flutter
+    * BLoC (flutter_bloc)
+    * Dio for HTTP requests
+    * Geolocator for location services
+    * Shared Preferences for local persistence
+    * flutter_dotenv for secure config handling
+    * Mocktail for unit testing
