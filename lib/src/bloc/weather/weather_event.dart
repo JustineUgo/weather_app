@@ -23,3 +23,5 @@ class Coordinate extends Equatable {
   @override
   List<Object?> get props => [lat, lon];
 }
+
+class LoadWeatherForCurrentLocation extends WeatherEvent {}

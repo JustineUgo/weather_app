@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather/src/screen/city_screen.dart';
 import 'package:weather/src/screen/home_screen.dart';
+import 'package:weather/src/screen/my_weather_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
@@ -20,11 +21,18 @@ final GoRouter router = GoRouter(
         return const CityScreen();
       },
     ),
+    GoRoute(
+      path: RoutePath.myWeather,
+      builder: (BuildContext context, GoRouterState state) {
+        return const MyWeatherScreen();
+      },
+    ),
   ],
 );
 
 class RoutePath {
   static const String home = '/';
   static const String city = '/city';
+  static const String myWeather = '/my-weather';
   
 }

@@ -7,6 +7,7 @@ import 'package:weather/route/router.dart';
 import 'package:weather/src/bloc/city/selected_city_bloc.dart';
 import 'package:weather/src/bloc/city/selected_city_event';
 import 'package:weather/src/bloc/city/selected_city_state.dart';
+import 'package:weather/src/bloc/weather/my_weather_bloc.dart';
 import 'package:weather/src/bloc/weather/weather_bloc.dart';
 import 'package:weather/src/bloc/weather/weather_event.dart';
 import 'package:weather/src/bloc/weather/weather_state.dart';
@@ -49,7 +50,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("Weather Check!")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Weather Check!"),
+        actions: [
+          IconButton(
+            icon: Icon(CupertinoIcons.location),
+            onPressed: () {
+              BlocProvider.of<MyWeatherBloc>(context).add(LoadWeatherForCurrentLocation());
+              context.push(RoutePath.myWeather);
+            },
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(CupertinoIcons.add),

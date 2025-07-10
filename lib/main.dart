@@ -6,10 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/config/env_config.dart';
 import 'package:weather/config/env_variables.dart';
 import 'package:weather/route/router.dart';
+import 'package:weather/service/location_service.dart';
 import 'package:weather/service/network_service.dart';
 import 'package:weather/service/storage_service.dart';
 import 'package:weather/src/bloc/city/city_bloc.dart';
 import 'package:weather/src/bloc/city/selected_city_bloc.dart';
+import 'package:weather/src/bloc/weather/my_weather_bloc.dart';
 import 'package:weather/src/bloc/weather/weather_bloc.dart';
 import 'package:weather/src/repository/city_repository.dart';
 import 'package:weather/src/repository/weather_repository.dart';
@@ -47,6 +49,13 @@ class WeatherApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => WeatherBloc(
+            locationService: LocationService(),
+            repository: WeatherRepositoryImpl(networkService: client),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => MyWeatherBloc(
+            locationService: LocationService(),
             repository: WeatherRepositoryImpl(networkService: client),
           ),
         ),
